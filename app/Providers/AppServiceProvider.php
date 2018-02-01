@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,8 +14,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        //时间格式转换
         \Carbon\Carbon::setLocale('zh');
+
+        //数据库默认字符串长度191
+        Schema::defaultStringLength(191);
     }
 
     /**
