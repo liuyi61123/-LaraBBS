@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\UserRequest;
 
-class UserController extends Controller
+class UsersController extends Controller
 {
     /**
      * 展示用户信息
