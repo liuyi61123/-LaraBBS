@@ -8,6 +8,11 @@ use App\Http\Requests\UserRequest;
 use App\Handlers\ImageUploadHandler;
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['show']]);
+    }
+
     /**
      * 展示用户信息
      */
@@ -20,6 +25,7 @@ class UsersController extends Controller
      * 编辑用户信息
      */
     public function edit(User $user){
+        $this->authorize('update', $user);
 
         return view('users.edit',compact('user'));
     }
@@ -28,6 +34,7 @@ class UsersController extends Controller
      * 修改用户信息
      */
     public function update(UserRequest $request,ImageUploadHandler $uploader, User $user){
+        $this->authorize('update', $user);
 
         $data = $request->all();
         //处理上传的文件
