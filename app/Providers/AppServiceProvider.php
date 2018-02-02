@@ -29,6 +29,11 @@ class AppServiceProvider extends ServiceProvider
 
         // 为 reply 模型注册观察者
         Reply::observe(ReplyObserver::class);
+
+       //  \Horizon::auth(function ($request) {
+       //     // 是否是站长
+       //     return \Auth::user()->hasRole('Founder');
+       // });
     }
 
     /**
@@ -38,6 +43,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if (app()->isLocal()) {
+           $this->app->register(\VIACreative\SudoSu\ServiceProvider::class);
+       }
     }
 }
