@@ -19,6 +19,12 @@ class Topic extends Model
       public function category(){
           return $this->belongsTo(Category::class);
       }
+      /**
+       * 关联的回复
+       */
+       public function replies(){
+           return $this->hasMany(Reply::class);
+       }
 
     /**
      * 根据不同参数，进行排序
