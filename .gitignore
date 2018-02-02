@@ -7,10 +7,10 @@
 /.idea
 /.vscode
 /.vagrant
-.env
+/.env
 Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-composer.lock
-package-lock.json
+/composer.lock
+/package-lock.json
