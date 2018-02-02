@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Models\Topic;
 use App\Models\Reply;
+use App\Models\Link;
 use App\Observers\TopicObserver;
 use App\Observers\ReplyObserver;
+use App\Observers\LinkObserver;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 
@@ -29,6 +31,9 @@ class AppServiceProvider extends ServiceProvider
 
         // 为 reply 模型注册观察者
         Reply::observe(ReplyObserver::class);
+
+        // 为 Link 模型注册观察者
+        Link::observe(LinkObserver::class);
 
        //  \Horizon::auth(function ($request) {
        //     // 是否是站长
