@@ -11,11 +11,13 @@ class ReplyObserver
 {
     public function creating(Reply $reply)
     {
-        //
+        //输入过滤
+        $reply->content = clean($reply->content, 'user_topic_body');
     }
 
-    public function updating(Reply $reply)
+    public function created(Reply $reply)
     {
-        //
+        //添加评论后，在帖子回复数量里加一
+        $reply->topic->increment('reply_count', 1);
     }
 }

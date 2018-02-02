@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Models\Topic;
+use App\Models\Reply;
 use App\Observers\TopicObserver;
+use App\Observers\ReplyObserver;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 
@@ -23,7 +25,10 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         // 为 topic 模型注册观察者
-       Topic::observe(TopicObserver::class);
+        Topic::observe(TopicObserver::class);
+
+        // 为 reply 模型注册观察者
+        Reply::observe(ReplyObserver::class);
     }
 
     /**
