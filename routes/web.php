@@ -1,6 +1,6 @@
 <?php
 
-Route::get('/', 'PagesController@root')->name('root');
+Route::get('/', 'TopicsController@index')->name('root');
 //无权限访问
 Route::get('permission-denied', 'PagesController@permissionDenied')->name('permission-denied');
 
