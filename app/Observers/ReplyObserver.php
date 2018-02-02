@@ -27,4 +27,10 @@ class ReplyObserver
             $topic->user->notify(new TopicReplied($reply));
         }
     }
+
+    public function deleted(Reply $reply)
+    {
+        //删除评论后，在帖子回复数量里减一
+        $reply->topic->decrement('reply_count', 1);
+    }
 }
