@@ -1,6 +1,8 @@
 <?php
 
 Route::get('/', 'PagesController@root')->name('root');
+//无权限访问
+Route::get('permission-denied', 'PagesController@permissionDenied')->name('permission-denied');
 
 // Authentication Routes...
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
