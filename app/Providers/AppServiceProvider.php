@@ -40,10 +40,10 @@ class AppServiceProvider extends ServiceProvider
         // 为 Link 模型注册观察者
         Link::observe(LinkObserver::class);
 
-        \Horizon::auth(function ($request) {
-           // 是否是站长
-           return \Auth::user()->hasRole('Founder');
-       });
+//        \Horizon::auth(function ($request) {
+//           // 是否是站长
+//           return \Auth::user()->hasRole('Founder');
+//       });
     }
 
     /**
