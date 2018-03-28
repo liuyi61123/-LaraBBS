@@ -10,7 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use HasRoles,Traits\ActiveUserHelper;
+    use HasRoles,Traits\ActiveUserHelper,Traits\LastActivedAtHelper;
     use Notifiable{
          notify as protected laravelNotify;
     }
