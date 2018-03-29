@@ -40,6 +40,9 @@ $api->version('v1', [
             // 当前登录用户信息
             $api->get('user', 'UsersController@me')
                 ->name('api.user.show');
+            // 小程序保存用户信息
+            $api->post('weapp/user','WeappController@user')
+                ->name('api.weapp.user');
         });
     });
 });

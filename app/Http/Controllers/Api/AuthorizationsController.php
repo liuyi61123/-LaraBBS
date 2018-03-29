@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use Auth;
+use EasyWeChat;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\Api\SocialAuthorizationRequest;
@@ -19,6 +20,12 @@ class AuthorizationsController extends Controller
      */
     public function socialStore($type, SocialAuthorizationRequest $request)
     {
+        //微信小程序登录
+        if($type == 'weapp'){
+            $token = $this->weappLogin($request->code);
+            return $this->respondWithToken($token);
+        }
+
         if (!in_array($type, ['weixin'])) {
             return $this->response->errorBadRequest();
         }
@@ -114,6 +121,28 @@ class AuthorizationsController extends Controller
         return $this->response->noContent();
     }
 
+    protected function weappLogin($code){
+        $app= EasyWeChat::miniProgram();
+        $oauthUser = $app->auth->session($code);
+
+        $unionid = isset($oauthUser['unionid']) ? $oauthUser['unionid'] : null;
+
+        if ($unionid) {
+            $user = User::where('weixin_unionid', $unionid)->first();
+        } else {
+            $user = User::where('weixin_openid', $oauthUser['openid'])->first();
+        }
+
+        // 没有用户，默认创建一个用户
+        if (!$user) {
+            $user = User::create([
+                'weixin_openid' => $oauthUser['openid'],
+                'weixin_unionid' => $unionid,
+            ]);
+        }
+        $token = Auth::guard('api')->fromUser($user);
+        return $token;
+    }
 
     /**
      * 统一返回
