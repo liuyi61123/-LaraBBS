@@ -43,6 +43,9 @@ $api->version('v1', [
         //最新发布的帖子
         $api->get('topics/{num}/new', 'TopicsController@new')
         ->name('api.topics.new');
+        //查看文章详情
+        $api->get('topics/{topic}', 'TopicsController@show')
+        ->name('api.topics.show');
 
         // 需要 token 验证的接口
         $api->group(['middleware' => 'api.auth'], function($api) {
