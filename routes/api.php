@@ -28,6 +28,12 @@ $api->version('v1', [
         // 登录
         $api->post('authorizations', 'AuthorizationsController@store')
             ->name('api.authorizations.store');
+        // 资源推荐
+        $api->get('links', 'LinksController@index')
+            ->name('api.links.index');
+        // 分类帖子
+        $api->get('categories', 'CategoriesController@index')
+            ->name('api.categories.index');
 
         // 需要 token 验证的接口
         $api->group(['middleware' => 'api.auth'], function($api) {
