@@ -28,21 +28,28 @@ $api->version('v1', [
         // 登录
         $api->post('authorizations', 'AuthorizationsController@store')
             ->name('api.authorizations.store');
-        // 刷新token
-        $api->put('authorizations/current', 'AuthorizationsController@update')
-            ->name('api.authorizations.update');
-        // 删除token
-        $api->delete('authorizations/current', 'AuthorizationsController@destroy')
-            ->name('api.authorizations.destroy');
 
         // 需要 token 验证的接口
         $api->group(['middleware' => 'api.auth'], function($api) {
+            // 刷新token
+            $api->put('authorizations/current', 'AuthorizationsController@update')
+                ->name('api.authorizations.update');
+            // 删除token
+            $api->delete('authorizations/current', 'AuthorizationsController@destroy')
+                ->name('api.authorizations.destroy');
             // 当前登录用户信息
             $api->get('user', 'UsersController@me')
                 ->name('api.user.show');
             // 小程序保存用户信息
-            $api->post('weapp/user','WeappController@user')
-                ->name('api.weapp.user');
+            $api->post('user/weapp','UsersController@weapp')
+                ->name('api.user.weapp');
+            // 编辑登录用户信息
+            $api->put('user', 'UsersController@update')
+                ->name('api.user.update');
+            // 图片资源
+            $api->post('images', 'ImagesController@store')
+                ->name('api.images.store');
+
         });
     });
 });
