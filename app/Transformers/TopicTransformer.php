@@ -14,7 +14,7 @@ use League\Fractal\TransformerAbstract;
 class TopicTransformer extends TransformerAbstract
 {
     protected $availableIncludes = ['user', 'category'];
-    
+
     public function transform(Topic $topic)
     {
         return [
