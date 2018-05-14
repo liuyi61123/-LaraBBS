@@ -39,7 +39,7 @@ $api->version('v1', [
         ->name('api.topics.index');
         //用户发布的帖子
         $api->get('users/{user}/topics', 'TopicsController@userIndex')
-        ->name('api.users.topics.index');
+            ->name('api.users.topics.index');
         //最新发布的帖子
         $api->get('topics/{num}/new', 'TopicsController@new')
         ->name('api.topics.new');
@@ -67,6 +67,12 @@ $api->version('v1', [
             // 图片资源
             $api->post('images', 'ImagesController@store')
                 ->name('api.images.store');
+            //登录用户发布的帖子
+            $api->get('users/topics', 'TopicsController@authIndex')
+                ->name('api.auths.topics.index');
+            //登录用户的回复
+            $api->get('users/replies', 'RepliesController@authIndex')
+                ->name('api.auths.replies.index');
             // 发布话题
             $api->post('topics', 'TopicsController@store')
                 ->name('api.topics.store');

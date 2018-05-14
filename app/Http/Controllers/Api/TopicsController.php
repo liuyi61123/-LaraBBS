@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Auth;
 use App\Models\User;
 use App\Models\Topic;
 use Illuminate\Http\Request;
@@ -44,6 +45,14 @@ class TopicsController extends Controller
     public function userIndex(User $user, Request $request)
     {
         $topics = $user->topics()->recent()
+            ->paginate(20);
+
+        return $this->response->paginator($topics, new TopicTransformer());
+    }
+
+    public function authIndex( Request $request)
+    {
+        $topics = Auth::user()->topics()->recent()
             ->paginate(20);
 
         return $this->response->paginator($topics, new TopicTransformer());
