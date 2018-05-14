@@ -6,7 +6,7 @@ use Auth;
 use App\Models\Reply;
 use App\Http\Requests\Api\ReplyRequest;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Transformers\ReplyTransformer;
 
 class RepliesController extends Controller
 {
