@@ -40,12 +40,18 @@ $api->version('v1', [
         //用户发布的帖子
         $api->get('users/{user}/topics', 'TopicsController@userIndex')
             ->name('api.users.topics.index');
+        //用户发布的回复
+        $api->get('users/{user}/replies', 'RepliesController@userIndex')
+            ->name('api.users.replies.index');
+        // 话题回复列表
+        $api->get('topics/{topic}/replies', 'RepliesController@index')
+            ->name('api.topics.replies.index');
         //最新发布的帖子
         $api->get('topics/{num}/new', 'TopicsController@new')
-        ->name('api.topics.new');
+            ->name('api.topics.new');
         //查看文章详情
         $api->get('topics/{topic}', 'TopicsController@show')
-        ->name('api.topics.show');
+            ->name('api.topics.show');
 
         // 需要 token 验证的接口
         $api->group(['middleware' => 'api.auth'], function($api) {
@@ -67,12 +73,6 @@ $api->version('v1', [
             // 图片资源
             $api->post('images', 'ImagesController@store')
                 ->name('api.images.store');
-            //登录用户发布的帖子
-            $api->get('users/topics', 'TopicsController@authIndex')
-                ->name('api.auths.topics.index');
-            //登录用户的回复
-            $api->get('users/replies', 'RepliesController@authIndex')
-                ->name('api.auths.replies.index');
             // 发布话题
             $api->post('topics', 'TopicsController@store')
                 ->name('api.topics.store');
@@ -82,7 +82,9 @@ $api->version('v1', [
             // 删除话题
             $api->delete('topics/{topic}', 'TopicsController@destory')
                 ->name('api.topics.destory');
-
+            // 发布回复
+            $api->post('topics/{topic}/replies', 'RepliesController@store')
+            ->name('api.topics.replies.store');
         });
     });
 });
