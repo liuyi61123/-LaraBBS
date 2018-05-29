@@ -52,19 +52,28 @@ class UsersController extends Controller
     }
 
     /**
+     * 获取制定信息
+     *
+     * @return \Dingo\Api\Http\Response
+     */
+    public function show(User $user){
+        return $this->response->item($user, new UserTransformer());
+    }
+
+    /**
      * 修改个人信息
      * @return array
      */
     public function update(UserRequest $request){
         $user = $this->user();
 
-        $attributes = $request->only(['name', 'email', 'introduction']);
+        $attributes = $request->only(['name', 'email', 'introduction','avatar']);
 
-        if ($request->avatar_image_id) {
-            $image = Image::find($request->avatar_image_id);
-
-            $attributes['avatar'] = $image->path;
-        }
+        // if ($request->avatar_image_id) {
+        //     $image = Image::find($request->avatar_image_id);
+        //
+        //     $attributes['avatar'] = $image->path;
+        // }
         $user->update($attributes);
 
         return $this->response->item($user, new UserTransformer());

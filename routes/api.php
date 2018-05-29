@@ -37,6 +37,9 @@ $api->version('v1', [
         //帖子列表
         $api->get('topics', 'TopicsController@index')
         ->name('api.topics.index');
+        //指定用户信息
+        $api->get('users/{user}', 'UsersController@show')
+            ->name('api.users.show');
         //用户发布的帖子
         $api->get('users/{user}/topics', 'TopicsController@userIndex')
             ->name('api.users.topics.index');
@@ -65,7 +68,7 @@ $api->version('v1', [
             $api->get('user', 'UsersController@me')
                 ->name('api.user.show');
             // 小程序保存用户信息
-            $api->post('user/weapp','UsersController@weapp')
+            $api->post('users/weapp','UsersController@weapp')
                 ->name('api.user.weapp');
             // 编辑登录用户信息
             $api->put('user', 'UsersController@update')
@@ -84,7 +87,7 @@ $api->version('v1', [
                 ->name('api.topics.destory');
             // 发布回复
             $api->post('topics/{topic}/replies', 'RepliesController@store')
-            ->name('api.topics.replies.store');
+                ->name('api.topics.replies.store');
         });
     });
 });
